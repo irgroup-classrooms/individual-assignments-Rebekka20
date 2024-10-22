@@ -1,3 +1,6 @@
+# My First File 
+[My GitHub Profile](https://github.com/Rebekka20/Rebekka20)
+---
 # To-Do List - Things to Learn This Semester
 
 - [ ] Learn to use GitHub
