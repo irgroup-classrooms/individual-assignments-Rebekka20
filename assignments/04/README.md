@@ -12,42 +12,130 @@ You can add your command line in- and outputs directly to this README file. Alte
 
 1. Extract all email addresses from the text.
 ``` 
+$ grep -oP '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}' contacts.csv
+
+john.doe@example.com
+jane.smith@gmail.com
+mjohnson@yahoo.com
+lharris@hotmail.com
+rbrown@company.com
+alice.white@domain.org
+dgreen@domain.net
+eblack@webmail.com
+cblue@provider.com
+ssilver@university.edu
 
 ``` 
 2. Extract all phone numbers from the text.
 ``` 
+$ grep -oP '\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}' contacts.csv
+
+(555) 123-4567
+(555) 987-6543
+(555) 555-5555
+(555) 321-6789
+(555) 876-5432
+(555) 432-5678
+(555) 246-1357
+(555) 531-2468
+(555) 864-9753
+(555) 975-8642
 
 ``` 
 3. Extract all names that start with the letter ‘J’.
 ``` 
+grep -oP '\bJ[a-zA-Z]*\b' contacts.csv
+
+John
+Jane
+Johnson
 
 ``` 
 4. Extract all street names that contain the word 'St'.
 ``` 
+$ grep -oP '\b\w+\s*St\w*\b' contacts.csv
+
+Main St
+Oak St
+Cedar St
+Elm St
+Birch St
+Walnut St
+Chestnut St
 
 ``` 
 5. Extract all addresses in ‘USA’.
 ``` 
+$ grep -oP '.*\bUSA\b' contacts.csv | sed 's/,\s*USA.*//'
+
+John Doe, 123 Main St, Anytown
+Jane Smith, 456 Oak St, Sometown
+Mike Johnson, 789 Pine Rd, Othertown
+Linda Harris, 321 Maple Dr, Newcity
+Robert Brown, 654 Cedar St, Oldtown
+Alice White, 987 Elm St, Smalltown
+David Green, 246 Birch St, Uptown
+Emily Black, 135 Walnut St, Middletown
+Chris Blue, 864 Chestnut St, Metropolis
+Susan Silver, 975 Cypress Ave, Bigcity
 
 ``` 
 6. Extract the last names of all people.
 ``` 
+$ grep -oP '^\S+\s(\S+)' contacts.csv | awk '{print $2}'
+
+Doe,
+Smith,
+Johnson,
+Harris,
+Brown,
+White,
+Green,
+Black,
+Blue,
+Silver,
 
 ``` 
 7. Extract all email domains (part after the @ sign).
 ``` 
+$ grep -oP '@\K[\w.-]+' contacts.csv
+
+example.com
+gmail.com
+yahoo.com
+hotmail.com
+company.com
+domain.org
+domain.net
+webmail.com
+provider.com
+university.edu
 
 ``` 
 8.	Extract all instances of the first name ‘David’ along with their full address (street and city).
 ``` 
+$ grep -oP 'David\s+\S+\s*,\s*[^,]+,\s*[A-Za-z\s]+' contacts.csv
+
+David Green, 246 Birch St, Uptown
 
 ``` 
 9.	Find all entries where the phone number ends with ‘7’.
 ``` 
+$ grep -P '.*\d{1,}7\b.*' contacts.csv
+
+John Doe, 123 Main St, Anytown, USA, john.doe@example.com, (555) 123-4567
+Jane Smith, 456 Oak St, Sometown, USA, jane.smith@gmail.com, (555) 987-6543
+Alice White, 987 Elm St, Smalltown, USA, alice.white@domain.org, (555) 432-5678
+David Green, 246 Birch St, Uptown, USA, dgreen@domain.net, (555) 246-1357
 
 ``` 
 10.	Extract all instances of first names that end with the letter 'e'.
 ``` 
+$ grep -oP '^\b[A-Za-z]+e\b' contacts.csv
+
+Jane
+Mike
+Alice
 
 ``` 
 
